@@ -22,15 +22,15 @@ function PokemonGame(){
         calcularProbabilidadCaptura = () =>{
             switch (this.rareza){
                 case 1: 
-                    return obtenerEnteroAleatorio(1, 20)
+                    return obtenerEnteroAleatorio(1, 29)
                 case 2:
-                    return obtenerEnteroAleatorio(15, 35)
+                    return obtenerEnteroAleatorio(25, 50)
                 case 3: 
-                    return obtenerEnteroAleatorio(30, 50)
+                    return obtenerEnteroAleatorio(40, 60)
                 case 4: 
-                    return obtenerEnteroAleatorio(45, 65)
+                    return obtenerEnteroAleatorio(55, 65)
                 case 5: 
-                    return obtenerEnteroAleatorio(60, 80)
+                    return obtenerEnteroAleatorio(70, 90)
                 default: 
                     alert(`ERROR! La rareza debe ser un número entre 1 y 5`)
                     break;
@@ -66,10 +66,10 @@ function PokemonGame(){
 
     // ==================== LISTA DE POKEMONES ====================
     const pokemonesDisponibles = [
-        // Quagsire = new PokemonConstructor ("Quagsire", "Agua" + " - " + "Tierra", 2),
-        // Charmander = new PokemonConstructor("Charmander", "Fuego", 1),
-        // Mew = new PokemonConstructor("Mew", "Psiquico", 5),
-        // Tyranitar = new PokemonConstructor("Tyranitar", "Tierra" + " - " + "Sieniestro", 4),
+        Quagsire = new PokemonConstructor ("Quagsire", "Agua" + " - " + "Tierra", 2),
+        Charmander = new PokemonConstructor("Charmander", "Fuego", 1),
+        Mew = new PokemonConstructor("Mew", "Psiquico", 5),
+        Tyranitar = new PokemonConstructor("Tyranitar", "Tierra" + " - " + "Siniestro", 4),
         Magneton = new PokemonConstructor("Magneton", "Electrico" + " - " + "Acero", 3)
     ]
 
@@ -79,10 +79,10 @@ function PokemonGame(){
     // ==================== LISTA DE POKEBOLAS ====================
 
     const pokebolasDisponibles = [
-        Pokeball = new PokeballConstructor ("Pokeball", "Normal", 1, "La más simple de todas, buena para pokemones iniciales", 1),
-        Superball = new PokeballConstructor ("Superball", "Especial", 0, "Version mejorada de la pokebola, mayor indice de eficacia pero más costosa", 2),
-        Ultraball = new PokeballConstructor ("Ultraball", "Épica", 1, "Posee un gran indice de captura que viene acompañado de su alto precio, necesario para pokemones de alta rareza.", 3),
-        Masterball = new PokeballConstructor ("Masterball", "Única", 6, "La forma perfeccionada de la pokebola, atrapa cualquier cosa sin importar su dificultad", 100)
+        Pokeball = new PokeballConstructor ("Pokeball", "Normal", 3, "La más simple de todas, buena para pokemones iniciales", 1),
+        Superball = new PokeballConstructor ("Superball", "Especial", 3, "Version mejorada de la pokebola, mayor indice de eficacia pero más costosa", 2),
+        Ultraball = new PokeballConstructor ("Ultraball", "Épica", 2, "Posee un gran indice de captura que viene acompañado de su alto precio, necesario para pokemones de alta rareza.", 3),
+        Masterball = new PokeballConstructor ("Masterball", "Única", 1, "La forma perfeccionada de la pokebola, atrapa cualquier cosa sin importar su dificultad", 100)
     ]
 
     let pokebolasContador = pokebolasDisponibles[0].cantidad + pokebolasDisponibles[1].cantidad + pokebolasDisponibles[2].cantidad + pokebolasDisponibles[3].cantidad
@@ -97,9 +97,8 @@ function PokemonGame(){
             prepararInstanciaDeCaptura()
             this.utilizarPokebolaTipo()
             actualizarEstadoJuego()
-            console.log(POKEDEX)
         }while (!actualizarEstadoJuego())
-        this.alertarEstadoFinalJuego()
+        alertarEstadoFinalJuego()
     } 
 // ======================================== FUNCIONES DEL JUEGO ========================================
     
@@ -186,7 +185,7 @@ function PokemonGame(){
         return (pokebolasContador === 0) || (pokemonesDisponibles.length === 0)
         }
 
-    this.alertarEstadoFinalJuego = ()=>{
+    function alertarEstadoFinalJuego (){
         if (pokemonesDisponibles == 0){
             alert(`¡Felicidades! Has capturado a todos los pokemon de este simulador. Esta es la pokedex que completaste: ${POKEDEX.nombre}`)
         } else {
