@@ -93,6 +93,7 @@ function PokemonGame(){
 // ==================== INICIO DEL JUEGO ====================
     this.IniciarJuego = () => {
         // La función que invoca a las demás para que el simulador pueda funcionar correctamente.
+        this.saludoEntrenador()
         do{
             prepararInstanciaDeCaptura()
             this.utilizarPokebolaTipo()
@@ -186,10 +187,13 @@ function PokemonGame(){
         }
 
     function alertarEstadoFinalJuego (){
+    // Una vez terminado el simulador, declara las variables con los nombres de los pokemones capturados y los que faltaban. Alerta un mensaje ya sea por haber ganado o por haber perdido.
+        let pokedexNombres = POKEDEX.map(a => a.nombre)
+        let pokemonesSalvajesNombres = pokemonesDisponibles.map(a => a.nombre)
         if (pokemonesDisponibles == 0){
-            alert(`¡Felicidades! Has capturado a todos los pokemon de este simulador. Esta es la pokedex que completaste: ${POKEDEX.nombre}`)
+            alert(`¡Felicidades! Has capturado a todos los pokemon de este simulador. Esta es la pokedex que completaste: ${pokedexNombres.join("\n")}`)
         } else {
-            alert(`No has podido completar el simulador :(. Estos son los pokemon que capturaste: ${POKEDEX.nombre} y estos son los que faltaron ${pokemonesDisponibles.nombre}`)
+            alert(`No has podido completar el simulador :(. Estos son los pokemon que capturaste: ${pokedexNombres.join("\n")} y estos son los que faltaron ${pokemonesSalvajesNombres.join("\n")}`)
         }
     }
 }
