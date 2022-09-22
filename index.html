@@ -4,11 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/main.css">
     <title>Simulador de captura -- Pokemón</title>
 </head>
 <body>
-    <h1>Hello world!</h1>
-    <button onclick="simulador()">Iniciar Juego</button>
+    <h1>¡Simulador de captura -- Pokemón!</h1>
+    <body>
+        <section id="seccionFormularioEntrenador">
+            <div>
+                <form id="formularioEntrenador">
+                    <label for="nombreEntrenador">Ingresa tu nombre de entrenador</label>
+                    <input type="text" name="nombreEntrenador" id="nombreEntrenador">
+                    <button type="submit">Enviar</button>
+                    <p id="advertenciaSiInvalido"></p>
+                </form>
+            </div>
+        </section>
+        <section id="seccionPokemon">
+    
+        </section>
+        <section id="seccionPokebola">
+            <p id="advertenciaSiInsuficiente"></p>
+        </section>
     <script src="./scripts/app.js"></script>
 </body>
 </html>
