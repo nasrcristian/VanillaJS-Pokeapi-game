@@ -18,28 +18,30 @@ function obtenerEnteroAleatorio (min, max){
             this.rareza = rareza
         }
 		capturado = false
-        // calcularProbabilidadCaptura = () =>{
-        //     switch (this.rareza){
-        //         case 1: 
-        //             return obtenerEnteroAleatorio(1, 13)
-        //         case 2:
-        //             return obtenerEnteroAleatorio(9, 22)
-        //         case 3: 
-        //             return obtenerEnteroAleatorio(18, 31)
-        //         case 4: 
-        //             return obtenerEnteroAleatorio(28, 40)
-        //         case 5: 
-        //             return obtenerEnteroAleatorio(36, 50)
-        //     } 
-		// }
+        calcularProbabilidadCaptura = () =>{
+            switch (this.rareza){
+                case 1: 
+                    return obtenerEnteroAleatorio(1, 13)
+                case 2:
+                    return obtenerEnteroAleatorio(9, 22)
+                case 3: 
+                    return obtenerEnteroAleatorio(18, 31)
+                case 4: 
+                    return obtenerEnteroAleatorio(32, 50)
+                case 5: 
+                    return obtenerEnteroAleatorio(45, 60)
+            } 
+		}
 	}
-    // ==================== LISTA DE POKEMONES ====================
+
+
+    // ============================================================ LISTA DE POKEMONES ============================================================
     const pokemonesDisponibles = [
-		new PokemonConstructor(1, "Quagsire", "./img/Quagsire.webp", "Agua" + " - " + "Tierra", obtenerEnteroAleatorio(9, 22)),
-        new PokemonConstructor(2, "Charmander", "./img/Charmander.png", "Fuego", obtenerEnteroAleatorio(1, 13)),
-        new PokemonConstructor(3, "Magneton", "./img/Magneton.png", "Electrico - Acero", obtenerEnteroAleatorio(18, 31)),
-        new PokemonConstructor(4, "Tyranitar", "./img/Tyranitar.webp", "Tierra - Siniestro", obtenerEnteroAleatorio(28, 40)),
-		new PokemonConstructor(9, "Mew", "./img/Mew.png", "Psiquico", obtenerEnteroAleatorio(36, 50))
+		new PokemonConstructor(1, "Quagsire", "./img/Quagsire.webp", "Agua" + " - " + "Tierra", 2),
+        new PokemonConstructor(2, "Charmander", "./img/Charmander.png", "Fuego", 1),
+        new PokemonConstructor(3, "Magneton", "./img/Magneton.png", "Electrico - Acero", 3),
+        new PokemonConstructor(4, "Tyranitar", "./img/Tyranitar.webp", "Tierra - Siniestro", 4),
+		new PokemonConstructor(5, "Mew", "./img/Mew.png", "Psiquico", 5)
     ]
 	
 	const indexPKM = ()=> {
@@ -52,15 +54,15 @@ function obtenerEnteroAleatorio (min, max){
     let POKEDEX = []
 
 
-    // ==================== LISTA DE POKEBOLAS ====================
+    // ============================================================ LISTA DE POKEBOLAS ============================================================
     const pokebolasDisponibles = [
         {
             id: 1,
             nombre: "Pokeball",
             imagen:"./img/pokeball.webp", 
             tipo: "Normal",
-            descripcion: "La más simple de todas, buena para pokemones iniciales",
-            cantidad: 5,
+            descripcion: "La más simple de todas, buena para pokemones de rareza 1 y 2",
+            cantidad: 3,
             eficaciaObjeto: obtenerEnteroAleatorio(1, 20),
         },
         {
@@ -68,8 +70,8 @@ function obtenerEnteroAleatorio (min, max){
             nombre: "Superball",
             imagen: "./img/superball.webp",
             tipo: "Especial",
-            descripcion: "Version mejorada de la pokebola, mayor indice de eficacia pero más costosa",
-            cantidad: 3,
+            descripcion: "Version mejorada de la pokebola, mayor indice de eficacia pero más costosa, muy efectiva para pokemones de rarez",
+            cantidad: 2,
             eficaciaObjeto: obtenerEnteroAleatorio(15, 35)
         },
         {
@@ -78,7 +80,7 @@ function obtenerEnteroAleatorio (min, max){
             imagen: "./img/ultraball.webp",
             tipo: "Épica",
             descripcion: "Posee un gran indice de captura que viene acompañado de su alto precio, necesario para pokemones de alta rareza",
-            cantidad: 2,
+            cantidad: 1,
             eficaciaObjeto: obtenerEnteroAleatorio(30, 55)
         },
         {
@@ -90,38 +92,34 @@ function obtenerEnteroAleatorio (min, max){
             cantidad: 1,
             eficaciaObjeto: 100
         }
-    ]
-
+]
     let pokebolasContador = pokebolasDisponibles[0].cantidad + pokebolasDisponibles[1].cantidad + pokebolasDisponibles[2].cantidad + pokebolasDisponibles[3].cantidad
 
 
+		// =============================== VARIABLES DE SECCION ==============================
+		const seccionPrincipal = document.getElementById("seccionPrincipal")
+        const seccionPostCaptura = document.getElementById("seccionPostCaptura")
+        const seccionPokemon = document.getElementById("seccionPokemon")
+        const seccionFormularioEntrenador = document.getElementById("seccionFormularioEntrenador")
+        const seccionPokedex = document.getElementById("seccionPokedex")
+        // =============================== VARIABLES DE SECCION ==============================
+    
 
 
-    // ======================================== FUNCIONES DEL JUEGO ========================================
-
-		// ================================================ COSAS DE DOM ================================================
-		
-
-
-    // PRIMER PANTALLA -- FORMULARIO CON VALIDACIÓN DE NOMBRE
+        // PRIMER PANTALLA -- FORMULARIO CON VALIDACIÓN DE NOMBRE
         const formularioNombre = document.getElementById("formularioEntrenador")
         const regexNombre = /^[a-zA-Z0-9_ ]{2,}[a-zA-Z]+[0-9]*$/;
-
-        let nombreEntrenador =
-
-        formularioNombre.addEventListener("submit", escribirBienvenidaEntrenador)
+        let nombreEntrenador
         
-        function escribirBienvenidaEntrenador(e){
+        formularioNombre.addEventListener("submit", seccionBienvenidaEntrenador)
+        
+        function seccionBienvenidaEntrenador(e){
         // A partir del valor ingresado en el formulario escribe en el HTML un mensaje de bienvenida si el nombre cumple con el regex y sino le solicita que ingrese un nombre valido.
             const formDataValidacion = new FormData(e.target)
             nombreEntrenador = formDataValidacion.get("nombreEntrenador")
-
-            const seccionFormularioEntrenador = document.getElementById("seccionFormularioEntrenador")
             const mensajeBienvenida = document.createElement("div");     
-
             let advertenciaNombre = ""
             const mensajeAdvertenciaNombre = document.getElementById("advertenciaSiInvalido");
-
             if (regexNombre.test(nombreEntrenador)){
                 seccionFormularioEntrenador.innerHTML = ""
                 mensajeBienvenida.innerHTML = 
@@ -136,35 +134,40 @@ function obtenerEnteroAleatorio (min, max){
         }
     
 
-        // EVENTO -- INICIA EL JUEGO Y APARECE EL POKEMON
+        // INSTANCIAS DEL JUEGO
         const iniciarSeccionDeCaptura = ()=> {
-            const seccionFormularioEntrenador = document.getElementById("seccionFormularioEntrenador")
+            seccionPostCaptura.innerHTML = 
             seccionFormularioEntrenador.innerHTML = ""
             invocarPokemonSalvaje()
             pintarPokebolas()
-            
+            pintarPokedex()
         }
+        const iniciarSeccionPostCaptura = ()=>{
+            const seccionPrincipalHijos = Array.from(seccionPrincipal.children)
+            seccionPrincipalHijos.forEach((hijo) => {
+                hijo.innerHTML = `` 
+                seccionPrincipal.appendChild(hijo)
+            })
+            seccionPostCaptura.innerHTML = 
+            `<h2>¿Que deseas hacer ${nombreEntrenador}?</h2>
+            <button onClick = iniciarSeccionDeCaptura()>Siguiente pokemon</button> 
+            <button onClick = pasarEstadoFinal()>Terminar juego</button>`
+    }
 
-// GRAFICA EL POKEMON EN EL HTML
-        function invocarPokemonSalvaje() {
-            // Se prepara una nueva instancia de juego al generar un pokemon salvaje y alertar de su presencia.
-            pokemonSalvaje = pokemonesDisponibles[indexPKM()]
-            alert(`¡Un ${pokemonSalvaje.nombre} salvaje ha aparecido!`)
-            const seccionPokemon = document.getElementById("seccionPokebola")
-            let datosPokemon = document.createElement("figure")
-            datosPokemon.innerHTML =`
+
+        const pintarPokemon = ()=>{
+            // Escribe los datos del pokemon a capturar
+            let datosPokemonSalvaje = document.createElement("figure")
+            datosPokemonSalvaje.innerHTML =`
             <img src="${pokemonSalvaje.imagen}" alt="" class="imagenPokebola">
             <figcaption>
             <p>${pokemonSalvaje.nombre}</p>
             <p>Tipo: ${pokemonSalvaje.tipo}</p>
             <p>Rareza: ${pokemonSalvaje.rareza}</p>
             </figcaption>`
-            seccionPokemon.appendChild(datosPokemon)
+            seccionPokemon.appendChild(datosPokemonSalvaje)
         }
 
-
-
-        // GRAFICA LAS POKEBOLAS EN EL HTML
 		const pintarPokebolas = ()=>{
 			// Escribe los datos de cada pokebola en el html
 			const eventoPokebolas = document.getElementById("seccionPokebola")
@@ -174,52 +177,74 @@ function obtenerEnteroAleatorio (min, max){
 
 			pokebolasDisponibles.forEach((pokebola, id)=> {
 				let datosPokeball = document.createElement("article")
-				datosPokeball.innerHTML = `
-				<img src="${pokebola.imagen}" alt="" class="imagenPokebola">
-				<p>${pokebola.nombre}</p>
-				<p>Tipo: ${pokebola.tipo}</p>
-				<p>${pokebola.descripcion}</p>
-				<p>Cantidad: ${pokebola.cantidad}</p>
-				<button onClick = validarCantidadYCapturar(${id})>Lanzar ${pokebola.nombre}</button>`
-			eventoPokebolas.appendChild(datosPokeball)
+                datosPokeball.innerHTML = crearPlantillaPokebolaHabilitadaODeshabilitada(pokebola, id)
+                eventoPokebolas.appendChild(datosPokeball)
 			})
 		}
-        
-
-		// ================================================ TERMINAN COSAS DE DOM ================================================
-
-
-
-        this.validarCantidadYCapturar = (indice) => {
-            // Con este algoritmo se busca analizar si hay pokebolas del tipo seleccionado, en caso de que no haya más se devuelve al menu de selección. 
-            if(pokebolasDisponibles[indice].cantidad <= 0){
-                let advertenciaInsuficiente = ""
-                const mensajeAdvertenciaInsuficiente = document.getElementById("advertenciaSiInsuficiente");
-                e.preventDefault()
-                advertenciaInsuficiente += `¡No te quedan mas pokebolas de ese tipo!`
-                mensajeAdvertenciaInsuficiente.innerHTML = advertenciaInsuficiente
-            }else{
-                capturarPokemonSi(indice)
-            }
-        }
-
-        this.capturarPokemonSi = (entrada) => {
-            // Este algoritmo calcula si el pokemon es capturado o no, en caso positivo traslada al pokemón desde la lista de pokemonSalvaje hacia POKEDEX, en caso negativo devuelve al pokemón a la lista de pokemonesDisponibles
-            if (pokemonSalvaje.rareza <= pokebolasDisponibles[entrada].eficaciaObjeto) {
-                alert(`Felicidades, has capturado a ${pokemonSalvaje.nombre}`), console.log(`La rareza de este pokemon era de ${pokemonSalvaje.rareza} y La eficacia de la pokebola era de ${pokebolasDisponibles[entrada].eficaciaObjeto}`)
-                this.trasladarPokemonAPokedex()
+        const crearPlantillaPokebolaHabilitadaODeshabilitada = (pokebola, index)=>{
+            // Grafica en el HTML una pokebola con las funciones activadas o desactivadas dependiendo de la cantidad de pokebolas que hayan disponibles.
+            if(pokebola.cantidad > 0){
+                return `<img src="${pokebola.imagen}" alt="" class="imagenPokebola">
+                <p>${pokebola.nombre}</p>
+                <p>Tipo: ${pokebola.tipo}</p>
+                <p>${pokebola.descripcion}</p>
+                <p>Cantidad: ${pokebola.cantidad}</p>
+                <button onClick = capturarPokemonSi(${index})>Lanzar ${pokebola.nombre}</button>`
             } else {
-                alert((`Mala suerte, ${pokemonSalvaje.nombre} escapó`), console.log(`La dificultad de este pokemon era de ${pokemonSalvaje.rareza} y La eficacia de la pokebola era de ${pokebolasDisponibles[entrada].eficaciaObjeto}`))
+                return `<img src="${pokebola.imagen}" alt="" class="imagenPokebola">
+                <p>${pokebola.nombre}</p>
+                <p>Tipo: ${pokebola.tipo}</p>
+                <p>${pokebola.descripcion}</p>
+                <p>Cantidad: ${pokebola.cantidad}</p>
+                <button disabled>Lanzar ${pokebola.nombre}</button>
+                <p>NO TIENE MAS POKEBOLAS DE ESTE TIPO!</p>`
             }
         }
-
-        this.trasladarPokemonAPokedex = () => {
-            // Se mueve al pokemón que se encontraba en la lista pokemonSalvaje hacia la pokedex, se elimina de la lista de disponibles al mismo.
-            POKEDEX.push(pokemonSalvaje)
-            this.eliminarPokemonDeLista_(pokemonesDisponibles, pokemonSalvaje)
+        const pintarPokedex = ()=>{
+            seccionPokedex.innerHTML = `<h2>POKEMONES CAPTURADOS</h2>`
+            POKEDEX.forEach((pokemon)=>{
+            let datosPokemonPokedex = document.createElement("figure")
+            datosPokemonPokedex.innerHTML =`
+            <img src="${pokemon.imagen}" alt="" class="imagenPokebola">
+            <figcaption>
+            <p>${pokemon.nombre}</p>
+            <p>Tipo: ${pokemon.tipo}</p>
+            </figcaption>`
+            seccionPokedex.appendChild(datosPokemonPokedex)
+        })
         }
 
-        this.eliminarPokemonDeLista_ = (arrayPrevioPokemon, arrayActualPokemon) => {
+
+        // ============================= LOGICA DEL JUEGO ====================================
+
+        function invocarPokemonSalvaje() {
+            // Se prepara una nueva instancia de juego al generar un pokemon salvaje y alertar de su presencia y graficarlo en el html.
+            pokemonSalvaje = pokemonesDisponibles[indexPKM()]
+            alert(`¡Un ${pokemonSalvaje.nombre} salvaje ha aparecido!`)
+            pintarPokemon()
+        }
+    
+
+        const capturarPokemonSi = (entrada) => {
+            // Este algoritmo calcula si el pokemon es capturado o no, en caso positivo traslada al pokemón desde la lista de pokemonSalvaje hacia POKEDEX, en caso negativo devuelve al pokemón a la lista de pokemonesDisponibles
+            pokebolasDisponibles[entrada].cantidad--
+            if (pokemonSalvaje.calcularProbabilidadCaptura() <= pokebolasDisponibles[entrada].eficaciaObjeto) {
+                alert(`Felicidades, has capturado a ${pokemonSalvaje.nombre}. La rareza de este pokemon era de ${pokemonSalvaje.rareza} y La eficacia de la pokebola era de ${pokebolasDisponibles[entrada].eficaciaObjeto}`)
+                trasladarPokemonAPokedex()
+            } else {
+                alert((`Mala suerte, ${pokemonSalvaje.nombre} escapó. Era un pokemon de rareza ${pokemonSalvaje.rareza}. La eficacia de la pokebola era de ${pokebolasDisponibles[entrada].eficaciaObjeto}`))
+            }
+            iniciarSeccionPostCaptura()
+        }
+
+        const trasladarPokemonAPokedex = () => {
+            // Se mueve al pokemón que se encontraba en la lista pokemonSalvaje hacia la pokedex, se actualiza su estado de capturado a verdadero, se elimina de la lista de disponibles al mismo y se grafica en el html como uno de los pokemones de la pokedex.
+            pokemonSalvaje.capturado = true
+            POKEDEX.push(pokemonSalvaje)
+            eliminarPokemonDeLista_(pokemonesDisponibles, pokemonSalvaje)
+        }
+
+        const eliminarPokemonDeLista_ = (arrayPrevioPokemon, arrayActualPokemon) => {
             // Se elimina de la lista de **arrayPrevioPokemon** al elemento que fue pusheado al array de **arrayActualPokemon**. 
             arrayPrevioPokemon.splice((arrayPrevioPokemon.indexOf(arrayActualPokemon)), 1)
         }
