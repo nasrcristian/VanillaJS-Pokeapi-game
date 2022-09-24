@@ -102,7 +102,6 @@ function obtenerEnteroAleatorio (min, max){
         const seccionPokemon = document.getElementById("seccionPokemon")
         const seccionFormularioEntrenador = document.getElementById("seccionFormularioEntrenador")
         const seccionPokedex = document.getElementById("seccionPokedex")
-        // =============================== VARIABLES DE SECCION ==============================
     
 
 
@@ -124,7 +123,7 @@ function obtenerEnteroAleatorio (min, max){
                 seccionFormularioEntrenador.innerHTML = ""
                 mensajeBienvenida.innerHTML = 
                 `<p>Bienvenido! joven <strong>${nombreEntrenador}</strong>, el camino para llegar a ser un maestro pokemón se logra a partir de mucha practica y esfuerzo. Nosotros en este simulador queremos que entrenes tu capacidad de captura para que nunca más se escape un pokemón de tus manos. Mucha suerte y que te diviertas!</p> 
-                <button onClick="iniciarSeccionDeCaptura()"> Comenzar a Jugar</button>`
+                <button onClick="iniciarInstanciaDeCaptura()"> Comenzar a Jugar</button>`
                 seccionFormularioEntrenador.appendChild(mensajeBienvenida)
             } else {
                 e.preventDefault()
@@ -135,26 +134,42 @@ function obtenerEnteroAleatorio (min, max){
     
 
         // INSTANCIAS DEL JUEGO
-        const iniciarSeccionDeCaptura = ()=> {
+        const iniciarInstanciaDeCaptura = ()=> {
             seccionPostCaptura.innerHTML = 
             seccionFormularioEntrenador.innerHTML = ""
             invocarPokemonSalvaje()
             pintarPokebolas()
             pintarPokedex()
         }
-        const iniciarSeccionPostCaptura = ()=>{
+        const iniciarInstanciaPostCaptura = ()=>{
             const seccionPrincipalHijos = Array.from(seccionPrincipal.children)
             seccionPrincipalHijos.forEach((hijo) => {
                 hijo.innerHTML = `` 
                 seccionPrincipal.appendChild(hijo)
             })
+            if(!actualizarEstadoJuego()){
             seccionPostCaptura.innerHTML = 
             `<h2>¿Que deseas hacer ${nombreEntrenador}?</h2>
-            <button onClick = iniciarSeccionDeCaptura()>Siguiente pokemon</button> 
-            <button onClick = pasarEstadoFinal()>Terminar juego</button>`
-    }
+            <button onClick = iniciarInstanciaDeCaptura()>Siguiente pokemon</button> 
+            <button onClick = iniciarInstanciaFinal()>Terminar juego</button>`
+            }else{
+            iniciarInstanciaFinal()
+            }   
+        }
+        const iniciarInstanciaFinal =()=> {
+            // Una vez terminado el simulador, declara las variables con los nombres de los pokemones capturados y los que faltaban. Alerta un mensaje ya sea por haber ganado o por haber perdido.
+            if (pokemonesDisponibles.length === 0) {
+                alert(`¡Felicidades ${nombreEntrenador}! Has capturado a todos los pokemon de este simulador. Esta es tu pokedex`)
+                pintarPokedex()
+            } else {
+                alert(`No has podido completar el simulador :( ${nombreEntrenador}. Estos son los pokemon que capturaste en esta oportunidad.`)
+                pintarPokedex()
+            }
+        }
 
 
+
+// DATOS ESCRITOS EN DOM 
         const pintarPokemon = ()=>{
             // Escribe los datos del pokemon a capturar
             let datosPokemonSalvaje = document.createElement("figure")
@@ -229,12 +244,13 @@ function obtenerEnteroAleatorio (min, max){
             // Este algoritmo calcula si el pokemon es capturado o no, en caso positivo traslada al pokemón desde la lista de pokemonSalvaje hacia POKEDEX, en caso negativo devuelve al pokemón a la lista de pokemonesDisponibles
             pokebolasDisponibles[entrada].cantidad--
             if (pokemonSalvaje.calcularProbabilidadCaptura() <= pokebolasDisponibles[entrada].eficaciaObjeto) {
-                alert(`Felicidades, has capturado a ${pokemonSalvaje.nombre}. La rareza de este pokemon era de ${pokemonSalvaje.rareza} y La eficacia de la pokebola era de ${pokebolasDisponibles[entrada].eficaciaObjeto}`)
+                alert(`Buen trabajo! capturaste a ${pokemonSalvaje.nombre}. Un pokemon de rareza ${pokemonSalvaje.rareza} utilizando tu pokebola de tipo ${pokebolasDisponibles[entrada].tipo}`)
                 trasladarPokemonAPokedex()
             } else {
-                alert((`Mala suerte, ${pokemonSalvaje.nombre} escapó. Era un pokemon de rareza ${pokemonSalvaje.rareza}. La eficacia de la pokebola era de ${pokebolasDisponibles[entrada].eficaciaObjeto}`))
+                alert((`Mala suerte, ${pokemonSalvaje.nombre} escapó. Era un pokemon de rareza ${pokemonSalvaje.rareza}. La pokebola que utilizaste era de tipo ${pokebolasDisponibles[entrada].tipo}, la próxima vez deberías utilziar una de calidad más alta.`))
             }
-            iniciarSeccionPostCaptura()
+            actualizarEstadoJuego()
+            iniciarInstanciaPostCaptura()
         }
 
         const trasladarPokemonAPokedex = () => {
@@ -249,24 +265,13 @@ function obtenerEnteroAleatorio (min, max){
             arrayPrevioPokemon.splice((arrayPrevioPokemon.indexOf(arrayActualPokemon)), 1)
         }
 
-/*
+
         function actualizarEstadoJuego() {
             // Actualiza la cantidad de pokebolas que hay 
             pokebolasContador = pokebolasDisponibles[0].cantidad + pokebolasDisponibles[1].cantidad + pokebolasDisponibles[2].cantidad + pokebolasDisponibles[3].cantidad
             return (pokebolasContador === 0) || (pokemonesDisponibles.length === 0)
         }
 
-        function alertarEstadoFinalJuego() {
-            // Una vez terminado el simulador, declara las variables con los nombres de los pokemones capturados y los que faltaban. Alerta un mensaje ya sea por haber ganado o por haber perdido.
-            let pokedexNombres = POKEDEX.map(a => a.nombre)
-            let pokemonesSalvajesNombres = pokemonesDisponibles.map(a => a.nombre)
-            if (pokemonesDisponibles == 0) {
-                alert(`¡Felicidades! Has capturado a todos los pokemon de este simulador. Esta es la pokedex que completaste: ${pokedexNombres.join("\n")}`)
-            } else {
-                alert(`No has podido completar el simulador :(. Estos son los pokemon que capturaste: ${pokedexNombres.join("\n")} y estos son los que faltaron ${pokemonesSalvajesNombres.join("\n")}`)
-            }
-        }
-*/
 
 
 
