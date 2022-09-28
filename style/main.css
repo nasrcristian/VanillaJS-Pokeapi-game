@@ -1,9 +1,138 @@
-.colorNombre strong {
-    color:red
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+*{
+    font-family: 'Press start 2P', cursive;
 }
 
-.imagenPokebola {
-    width: 100px
+h1, h2{
+    border: solid 4px rgb(31, 6, 121);
+    color:rgb(10, 10, 121);
+    text-align: center;
+}
+
+#seccionFormularioEntrenador{
+    position: absolute;
+    top:20vh;
+    left: 1vw;
+}
+#seccionFormularioEntrenador label{
+    display:block;
+    align-self: center;
+    margin-bottom: 20px;
+}
+#seccionFormularioEntrenador h3{
+    margin-top: 100px;
+    font-size: 20px;
 }
 
 
+
+.profile-card-4 {
+    max-width: 300px;
+    background-color:rgba(255, 241, 112, 0.541);
+    border-radius: 5px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+.profile-card-4 img {
+    width: 200px;
+    height: fit-content;
+    transition: all 0.25s linear;
+}
+
+.profile-card-4 .profile-content {
+    position: relative;
+    padding: 15px;
+    background-color: rgba(231, 190, 102, 0.507);
+}
+
+.profile-card-4 .profile-name h4 {
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+}
+
+.profile-card-4 .profile-description {
+    color: rgb(8, 8, 8);
+    font-size: 12px;
+    padding: 10px;
+}
+
+.profile-card-4 .profile-overview {
+    padding: 15px 0px;
+}
+
+.profile-card-4 .profile-overview p {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgb(26, 14, 82);
+}
+
+.profile-card-4 .profile-overview h5 {
+    color: #273751;
+    font-weight: bold;
+    text-align: center;
+    font-size: 15px;
+}
+
+.profile-card-4 .profile-content::before {
+    content: "";
+    position: absolute;
+    height: 10px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 0;
+}
+
+.datosPokedex .profile-card-4{
+    background-color: rgba(255, 0, 0, 0.356);
+}
+
+.datosPokedex .profile-card-4 .profile-content{
+    background-color: rgba(207, 14, 62, 0.226);
+}
+
+#seccionPokebola h3{
+    text-align: center  ;
+}
+
+.datosPokebola{
+    background-color: rgba(255, 226, 130, 0.315);
+    width: 250px;
+    font-size: 12px;
+    margin: 30px 40px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    display: flex;
+    flex-flow:column nowrap ;
+    align-items: center;
+    color:darkblue;
+}
+
+
+.datosPokebola p{
+    margin: 12px;
+}
+
+.datosPokebola button,img{
+    margin: 10px 50px;
+}
+
+.datosPokebola img {
+    width: 100px;
+}
+.datosPokebola button{
+    width:150px;
+    color:rgb(26, 14, 82);
+    background-color: rgba(145, 214, 55, 0.192);
+    border: solid 2px rgb(13, 13, 78);
+}
+
+.datosPokebola button:disabled{
+    color:rgb(211, 195, 195);
+    background-color:rgb(24, 63, 16);
+}

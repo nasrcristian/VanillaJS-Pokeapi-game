@@ -10,12 +10,13 @@ function obtenerEnteroAleatorio (min, max){
 // ==================== CONSTRUCTOR DE POKEMONES ====================
 
     class PokemonConstructor {
-        constructor (id, nombre, imagen, tipo, rareza){
+        constructor (id, nombre, imagen, tipo, rareza, descripcion){
             this.id = id
             this.nombre = nombre
             this.imagen = imagen
             this.tipo = tipo 
             this.rareza = rareza
+            this.descripcion = descripcion
         }
 		capturado = false
 	}
@@ -23,11 +24,11 @@ function obtenerEnteroAleatorio (min, max){
 
     // ============================================================ LISTA DE POKEMONES ============================================================
     let pokemonesDisponibles = [
-		new PokemonConstructor(1, "Quagsire", "./img/Quagsire.webp", "Agua" + " - " + "Tierra", 2),
-        new PokemonConstructor(2, "Charmander", "./img/Charmander.png", "Fuego", 1),
-        new PokemonConstructor(3, "Magneton", "./img/Magneton.png", "Electrico - Acero", 3),
-        new PokemonConstructor(4, "Tyranitar", "./img/Tyranitar.webp", "Tierra - Siniestro", 4),
-		new PokemonConstructor(5, "Mew", "./img/Mew.png", "Psiquico", 5)
+		new PokemonConstructor(1, "Quagsire", "./img/Quagsire.webp", "Agua" + " - " + "Tierra", 2, "Quagsire caza dejando las fauces abiertas en el agua y esperando a que su presa entre sin darse cuenta. Como se queda quieto, no pasa mucha hambre."),
+        new PokemonConstructor(2, "Charmander", "./img/Charmander.png", "Fuego", 1, "La llama que tiene en la punta de la cola arde según sus sentimientos. Llamea levemente cuando está alegre y arde vigorosamente cuando está enfadado."),
+        new PokemonConstructor(3, "Magneton", "./img/Magneton.png", "Electrico - Acero", 3, "	Son tres Magnemite que se atraen entre sí. Genera ondas de radio de gran alcance que provocan que la temperatura suba 2 grados centígrados en un radio de 1 km."),
+        new PokemonConstructor(4, "Tyranitar", "./img/Tyranitar.webp", "Tierra - Siniestro", 4, "Tiene una fuerza imponente. Puede derribar una montaña para hacer su nido. Suele merodear por zonas montañosas en busca de nuevos rivales contra los que luchar."),
+		new PokemonConstructor(5, "Mew", "./img/Mew.png", "Psiquico", 5, "Dicen que posee el mapa genético de todos los Pokémon. Puede hacerse invisible a voluntad, así que logra pasar inadvertido aunque haya gente cerca.")
     ]
 	
 	const indexPKM = ()=> {
@@ -47,8 +48,8 @@ function obtenerEnteroAleatorio (min, max){
             nombre: "Pokeball",
             imagen:"./img/pokeball.webp", 
             tipo: "Normal",
-            descripcion: "La más simple de todas, buena para pokemones de rareza 1 y 2",
-            cantidad: 1,
+            descripcion: "La más simple de todas, buena para pokemones de rareza nivel bajo",
+            cantidad: 3,
             eficaciaObjeto: obtenerEnteroAleatorio(1, 20),
         },
         {
@@ -56,8 +57,8 @@ function obtenerEnteroAleatorio (min, max){
             nombre: "Superball",
             imagen: "./img/superball.webp",
             tipo: "Especial",
-            descripcion: "Version mejorada de la pokebola, mayor indice de eficacia pero más costosa, muy efectiva para pokemones de rareza intermedia",
-            cantidad: 0,
+            descripcion: "Version mejorada de la pokebola, muy efectiva para pokemones de rareza intermedia",
+            cantidad: 2,
             eficaciaObjeto: obtenerEnteroAleatorio(15, 40)
         },
         {
@@ -65,8 +66,8 @@ function obtenerEnteroAleatorio (min, max){
             nombre: "Ultraball",
             imagen: "./img/ultraball.webp",
             tipo: "Épica",
-            descripcion: "Posee un gran indice de captura que viene acompañado de su alto precio, necesario para pokemones de alta rareza",
-            cantidad: 0,
+            descripcion: "Posee un gran indice de captura necesario para pokemones de alta rareza",
+            cantidad: 2,
             eficaciaObjeto: obtenerEnteroAleatorio(30, 55)
         },
         {
@@ -75,7 +76,7 @@ function obtenerEnteroAleatorio (min, max){
             imagen: "./img/masterball.webp",
             tipo: "Épica",
             descripcion: "La forma perfeccionada de la pokebola, nada puede escapar por más raro que sea",
-            cantidad: 100,
+            cantidad: 1,
             eficaciaObjeto: 100
         }
 ]
@@ -87,13 +88,14 @@ function obtenerEnteroAleatorio (min, max){
         const seccionPostCaptura = document.getElementById("seccionPostCaptura")
         const seccionPokemon = document.getElementById("seccionPokemon")
         const seccionFormularioEntrenador = document.getElementById("seccionFormularioEntrenador")
+        const eventoPokebolas = document.getElementById("seccionPokebola")
         const seccionPokedex = document.getElementById("seccionPokedex")
         const continuarJuego = document.getElementById("continuarJuego")
 
 
         // PRIMER PANTALLA -- FORMULARIO CON VALIDACIÓN DE NOMBRE
         const formularioNombre = document.getElementById("formularioEntrenador")
-        const regexNombre = /^[a-zA-Z0-9_ ø]{2,}[a-zA-Zø]+[0-9]*$/;
+        const regexNombre = /^[a-zA-Z0-9_ ø]{1,}[a-zA-Zø]+[0-9]*$/;
         let nombreEntrenador
         
         formularioNombre.addEventListener("submit", seccionBienvenidaEntrenador)
@@ -108,12 +110,12 @@ function obtenerEnteroAleatorio (min, max){
             if (regexNombre.test(nombreEntrenador)){
                 seccionFormularioEntrenador.innerHTML = ""
                 mensajeBienvenida.innerHTML = 
-                `<p>Bienvenido! joven <strong>${nombreEntrenador}</strong>, el camino para llegar a ser un maestro pokemón se logra a partir de mucha practica y esfuerzo. Nosotros en este simulador queremos que entrenes tu capacidad de captura para que nunca más se escape un pokemón de tus manos. Mucha suerte y que te diviertas!</p> 
+                `<p>Bienvenido! joven <strong>${nombreEntrenador}</strong>, el camino para llegar a ser un maestro pokemón se logra a partir de mucha practica y esfuerzo. Con este simulador se busca que entrenes tu capacidad de captura para que nunca más se escape un pokemón de tus manos. Mucha suerte y que te diviertas!</p> 
                 <button onClick="iniciarInstanciaDeCaptura()"> Comenzar a Jugar</button>`
                 seccionFormularioEntrenador.appendChild(mensajeBienvenida)
             } else {
                 e.preventDefault()
-                advertenciaNombre += `Nombre Invalido! <br> El nombre solo puede contener letras de la A-Z, números, espacios y guiones bajos (_)`
+                advertenciaNombre += `Nombre Invalido! <br> El nombre debe tener al menos 2 caracteres y solo puede contener letras de la A-Z, números, espacios y guiones bajos (_)`
                 mensajeAdvertenciaNombre.innerHTML = advertenciaNombre
             }
         }
@@ -123,7 +125,7 @@ function obtenerEnteroAleatorio (min, max){
         const iniciarInstanciaDeCaptura = ()=> {
             // Estado del juego inicial, aparece un pokemon y las pokebolas para capturar al mismo.
             if(!actualizarEstadoJuego()){
-            seccionPostCaptura.innerHTML = 
+            seccionPostCaptura.innerHTML = ""
             seccionFormularioEntrenador.innerHTML = ""
             invocarPokemonSalvaje()
             pintarPokebolas()
@@ -137,7 +139,7 @@ function obtenerEnteroAleatorio (min, max){
             eliminarDatosDelPrincipalHijos()
             if(!actualizarEstadoJuego()){
             seccionPostCaptura.innerHTML = 
-            `<h2>¿Que deseas hacer ${nombreEntrenador}?</h2>
+            `<h2 class="mb-3">¿Que deseas hacer ${nombreEntrenador}?</h2>
             <button onClick = iniciarInstanciaDeCaptura()>Siguiente pokemon</button> 
             <button onClick = iniciarInstanciaFinal()>Terminar juego</button>`
             }else{
@@ -156,8 +158,8 @@ function obtenerEnteroAleatorio (min, max){
                 pintarPokedex()
             }
         }
+
         continuarJuego.addEventListener("click", continuarPartidaGuardada)
-        
         function continuarPartidaGuardada(){
             recuperarDatosPartida()
             iniciarInstanciaDeCaptura()
@@ -189,39 +191,56 @@ function obtenerEnteroAleatorio (min, max){
 // DATOS ESCRITOS EN DOM 
         const pintarPokemon = ()=>{
             // Escribe los datos del pokemon a capturar
-            let datosPokemonSalvaje = document.createElement("figure")
+            let datosPokemonSalvaje = document.createElement("article")
             datosPokemonSalvaje.innerHTML =`
-            <img src="${pokemonSalvaje.imagen}" alt="" class="imagenPokebola">
-            <figcaption>
-            <p>${pokemonSalvaje.nombre}</p>
-            <p>Tipo: ${pokemonSalvaje.tipo}</p>
-            <p>Rareza: ${pokemonSalvaje.rareza}</p>
-            </figcaption>`
+                <div class="profile-card-4 text-center">
+                <img src="${pokemonSalvaje.imagen}" class="img img-responsive">
+                    <div class="profile-content">
+                        <div class="profile-name">
+                            <h4>${pokemonSalvaje.nombre}</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="profile-overview">
+                                    <p>Tipo</p>
+                                    <h5>${pokemonSalvaje.tipo}</h5></div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="profile-overview">
+                                    <p>Rareza</p>
+                                    <h5>${pokemonSalvaje.rareza}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`
             seccionPokemon.appendChild(datosPokemonSalvaje)
         }
 
-		const pintarPokebolas = ()=>{
+		function pintarPokebolas  (){
 			// Escribe los datos de cada pokebola en el html
-			const eventoPokebolas = document.getElementById("seccionPokebola")
             let headingPokebolas = document.createElement("h3")
             headingPokebolas.innerHTML = `¿Que deseas hacer ${nombreEntrenador}?`
             eventoPokebolas.appendChild(headingPokebolas)
-
 			pokebolasDisponibles.forEach((pokebola, id)=> {
 				let datosPokeball = document.createElement("article")
+                datosPokeball.classList.add("col-2", "datosPokebola")
                 datosPokeball.innerHTML = crearPlantillaPokebolaHabilitadaODeshabilitada(pokebola, id)
                 eventoPokebolas.appendChild(datosPokeball)
 			})
-		}
-        const crearPlantillaPokebolaHabilitadaODeshabilitada = (pokebola, index)=>{
+        }
+        function crearPlantillaPokebolaHabilitadaODeshabilitada (pokebola, index){
             // Grafica en el HTML una pokebola con las funciones activadas o desactivadas dependiendo de la cantidad de pokebolas que hayan disponibles.
             if(pokebola.cantidad > 0){
-                return `<img src="${pokebola.imagen}" alt="" class="imagenPokebola">
-                <p>${pokebola.nombre}</p>
-                <p>Tipo: ${pokebola.tipo}</p>
-                <p>${pokebola.descripcion}</p>
-                <p>Cantidad: ${pokebola.cantidad}</p>
-                <button onClick = prepararInstanciaPostCaptura(${index})>Lanzar ${pokebola.nombre}</button>`
+                return `
+                    <img src="${pokebola.imagen}" alt="" class="imagenPokebola">
+                    <p>${pokebola.nombre}</p>
+                    <p>Tipo: ${pokebola.tipo}</p>
+                    <p>${pokebola.descripcion}</p>
+                    <p>Cantidad: ${pokebola.cantidad}</p>
+                    <button onClick = prepararInstanciaPostCaptura(${index})>Lanzar ${pokebola.nombre}</button>
+                `
             } else {
                 return `<img src="${pokebola.imagen}" alt="" class="imagenPokebola">
                 <p>${pokebola.nombre}</p>
@@ -233,16 +252,37 @@ function obtenerEnteroAleatorio (min, max){
             }
         }
         const pintarPokedex = ()=>{
-            seccionPokedex.innerHTML = `<h2>POKEMONES CAPTURADOS</h2>`
+            seccionPokedex.innerHTML = `<h2 class="m-5">POKEMONES CAPTURADOS</h2>`
             POKEDEX.forEach((pokemon)=>{
-            let datosPokemonPokedex = document.createElement("figure")
-            datosPokemonPokedex.innerHTML =`
-            <img src="${pokemon.imagen}" alt="" class="imagenPokebola">
-            <figcaption>
-            <p>${pokemon.nombre}</p>
-            <p>Tipo: ${pokemon.tipo}</p>
-            </figcaption>`
-            seccionPokedex.appendChild(datosPokemonPokedex)
+            let datosPokedex = document.createElement("article")
+            datosPokedex.classList.add("col-4", "datosPokedex")
+            datosPokedex.innerHTML =`
+            <div class="profile-card-4 text-center">
+                <img src="${pokemon.imagen}" class="img img-responsive">
+                    <div class="profile-content">
+                        <div class="profile-name">
+                            <h4>${pokemon.nombre}</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="profile-overview">
+                                    <p>Tipo</p>
+                                    <h5>${pokemon.tipo}</h5></div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="profile-overview">
+                                    <p>Rareza</p>
+                                    <h5>${pokemon.rareza}</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-description">
+                        <p>${pokemon.descripcion}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+            seccionPokedex.appendChild(datosPokedex)
         })
         }
         const eliminarDatosDelPrincipalHijos = ()=>{
@@ -308,7 +348,6 @@ function obtenerEnteroAleatorio (min, max){
             // Se elimina de la lista de **arrayPrevioPokemon** al elemento que fue pusheado al array de **arrayActualPokemon**. 
             arrayPrevioPokemon.splice((arrayPrevioPokemon.indexOf(arrayActualPokemon)), 1)
         }
-
 
         function actualizarEstadoJuego() {
             // Actualiza la cantidad de pokebolas que hay y los datos del localstorage. Chequea que el juego no haya terminado basandose en la cantidad de pokemones y pokebolas que quedan.
