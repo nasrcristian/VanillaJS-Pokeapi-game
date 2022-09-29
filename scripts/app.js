@@ -140,25 +140,57 @@ function obtenerEnteroAleatorio (min, max){
             if(!actualizarEstadoJuego()){
             seccionPostCaptura.innerHTML = 
             `<h2 class="mb-3">¿Que deseas hacer ${nombreEntrenador}?</h2>
-            <button onClick = iniciarInstanciaDeCaptura()>Siguiente pokemon</button> 
-            <button onClick = iniciarInstanciaFinal()>Terminar juego</button>`
+            <div>   
+                <button onClick = iniciarInstanciaDeCaptura()>Siguiente pokemon</button> 
+                <button onClick = iniciarInstanciaFinal()>Terminar juego</button>
+            </div> `
             }else{
             iniciarInstanciaFinal()
             }  
         }
         const iniciarInstanciaFinal =()=> {
-            // Una vez terminado el simulador, declara las variables con los nombres de los pokemones capturados y los que faltaban. Alerta un mensaje ya sea por haber ganado o por haber perdido.
+            // Una vez terminado el simulador, declara las variables con los nombres de los pokemones capturados y los que faltaban. Notifica ya sea por haber ganado o por haber perdido.
             if (pokemonesDisponibles.length === 0) {
                 eliminarDatosDelPrincipalHijos()
-                alert(`¡Felicidades ${nombreEntrenador}! Has capturado a todos los pokemon de este simulador. Esta es tu pokedex`)
+                Toastify({
+                    text: `¡Felicidades ${nombreEntrenador}! Has capturado a todos los pokemon de este simulador. Esta es tu pokedex`,
+                    duration: 6000,
+                    newWindow: false,
+                    close: true,
+                    gravity: "top",
+                    offset:{
+                        y: "3em"
+                    },
+                    position: "center",
+                    stopOnFocus: true,
+                    style: {
+                    width: "70vw",
+                    background: "linear-gradient(90deg, rgba(217,207,53,1) 0%, rgba(131,214,1,1) 100%, rgba(68,255,0,1) 100%)",
+                    },
+                }).showToast();
                 pintarPokedex()
             } else {
                 eliminarDatosDelPrincipalHijos()
-                alert(`No has podido completar el simulador ${nombreEntrenador}. Estos son los pokemon que capturaste en esta oportunidad.`)
+                Toastify({
+                    text: `No has podido completar el simulador ${nombreEntrenador}. Estos son los pokemon que capturaste en esta oportunidad.`,
+                    duration: 6000,
+                    newWindow: false,
+                    close: true,
+                    gravity: "top",
+                    offset:{
+                        y: "3em"
+                    },
+                    position: "center",
+                    stopOnFocus: true,
+                    style: {
+                    width: "70vw",
+                    background: "linear-gradient(90deg, rgba(147,8,8,1) 0%, rgba(187,5,5,1) 49%, rgba(251,28,28,1) 96%, rgba(255,0,0,1) 100%)",
+                    },
+                }).showToast();
                 pintarPokedex()
             }
         }
-
+        // FUNCION CONTINUAR JUEGO
         continuarJuego.addEventListener("click", continuarPartidaGuardada)
         function continuarPartidaGuardada(){
             recuperarDatosPartida()
@@ -187,6 +219,7 @@ function obtenerEnteroAleatorio (min, max){
             pokebolasDisponibles = localStorage.getItem("pokebolasDisponibles")
             pokebolasDisponibles = JSON.parse(pokebolasDisponibles)
         }
+
 
 // DATOS ESCRITOS EN DOM 
         const pintarPokemon = ()=>{
@@ -296,9 +329,24 @@ function obtenerEnteroAleatorio (min, max){
         // ============================= LOGICA DEL JUEGO ====================================
 
         function invocarPokemonSalvaje() {
-            // Se prepara una nueva instancia de juego al generar un pokemon salvaje y alertar de su presencia y graficarlo en el html.
+            // Se prepara una nueva instancia de juego al generar un pokemon salvaje y notificar de su presencia y graficarlo en el html.
             pokemonSalvaje = pokemonesDisponibles[indexPKM()]
-            alert(`¡Un ${pokemonSalvaje.nombre} salvaje ha aparecido!`)
+            Toastify({
+                text: `¡Un ${pokemonSalvaje.nombre} salvaje ha aparecido!`,
+                duration: 3000,
+                newWindow: true,
+                close: true,
+                gravity: "top",
+                offset:{
+                    y: "2em"
+                },
+                position: "center",
+                stopOnFocus: false,
+                style: {
+                width: "70vw",
+                background:"linear-gradient(90deg, rgba(255,72,0,1) 0%, rgba(251,196,28,1) 100%, rgba(255,235,0,1) 100%)",
+                },
+            }).showToast();
             pintarPokemon()
         }
     
@@ -314,10 +362,40 @@ function obtenerEnteroAleatorio (min, max){
             // Este algoritmo calcula si el pokemon es capturado o no, en caso positivo traslada al pokemón desde la lista de pokemonSalvaje hacia POKEDEX, en caso negativo solo dispara un alert.
             pokebolasDisponibles[entrada].cantidad--
             if (pokemonDificultadCaptura() <= pokebolasDisponibles[entrada].eficaciaObjeto) {
-                alert(`Buen trabajo! capturaste a ${pokemonSalvaje.nombre}. Un pokemon de rareza ${pokemonSalvaje.rareza} utilizando tu pokebola de tipo ${pokebolasDisponibles[entrada].tipo}`)
+                Toastify({
+                    text: `Buen trabajo! capturaste a ${pokemonSalvaje.nombre}. Un pokemon de rareza ${pokemonSalvaje.rareza} utilizando tu pokebola de tipo ${pokebolasDisponibles[entrada].tipo}`,
+                    duration: 5500,
+                    newWindow: false,
+                    close: true,
+                    gravity: "bottom",
+                    offset:{
+                        y: "15em"
+                    },
+                    position: "center",
+                    stopOnFocus: false,
+                    style: {
+                    width: "70vw",
+                    background:"linear-gradient(90deg, rgba(8,224,161,1) 0%, rgba(0,176,242,1) 79%, rgba(0,116,255,1) 96%, rgba(0,99,255,1) 100%)",
+                    }
+                }).showToast();
                 trasladarPokemonAPokedex()
             } else {
-                alert((`Mala suerte, ${pokemonSalvaje.nombre} escapó. Era un pokemon de rareza ${pokemonSalvaje.rareza}. La pokebola que utilizaste era de tipo ${pokebolasDisponibles[entrada].tipo}, la próxima vez deberías utilizar una de calidad más alta.`))
+                Toastify({
+                    text: `Mala suerte, ${pokemonSalvaje.nombre} escapó. Era un pokemon de rareza ${pokemonSalvaje.rareza}. La pokebola que utilizaste era de tipo ${pokebolasDisponibles[entrada].tipo}, la próxima vez deberías utilizar una de calidad más alta.`,
+                    duration: 5500,
+                    newWindow: false,
+                    close: true,
+                    gravity: "bottom",
+                    offset:{
+                        y: "15em"
+                    },
+                    position: "center",
+                    stopOnFocus: false,
+                    style: {
+                    width: "70vw",
+                    background:"linear-gradient(90deg, rgba(73,0,142,1) 0%, rgba(84,1,135,1) 41%, rgba(138,1,118,1) 80%, rgba(147,5,113,1) 96%, rgba(144,0,58,1) 100%)",
+                    }
+                }).showToast();
             }
         }
 
