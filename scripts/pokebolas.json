@@ -1,0 +1,35 @@
+[
+    {
+        "id": 1,
+        "nombre": "Pokeball",
+        "imagen":"./img/pokeball.webp",
+        "calidad": "Normal",
+        "descripcion": "La más simple de todas, buena para pokemones de rareza nivel bajo",
+        "cantidad": 15
+    },
+    {
+        "id": 2,
+        "nombre": "Superball",
+        "imagen": "./img/superball.webp",
+        "calidad": "Especial",
+        "descripcion": "Version mejorada de la pokebola, muy efectiva para pokemones de rareza intermedia",
+        "cantidad": 10
+    },
+    {
+        "id": 3,
+        "nombre": "Ultraball",
+        "imagen": "./img/ultraball.webp",
+        "calidad": "Épica",
+        "descripcion": "Posee un gran indice de captura necesario para pokemones de alta rareza",
+        "cantidad": 5
+    },
+    {
+        "id": 4,
+        "nombre": "Masterball",
+        "imagen": "./img/masterball.webp",
+        "calidad": "Única",
+        "descripcion": "La forma perfeccionada de la pokebola, nada puede escapar por más raro que sea",
+        "cantidad": 1
+    }
+]
+

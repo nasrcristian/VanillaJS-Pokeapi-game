@@ -8,6 +8,10 @@ body {
     background-color: #eff8712a;
 }
 
+p strong {
+    color:#2d1096
+}
+
 h1, h2{
     border: solid 4px rgb(31, 6, 121);
     color:rgb(10, 10, 121);
@@ -18,7 +22,8 @@ h1, h2{
 #seccionFormularioEntrenador{
     position: absolute;
     top:20vh;
-    left: 1vw;
+    left:1vw;
+    width: 70%;
 }
 #seccionFormularioEntrenador label{
     display:block;
@@ -36,11 +41,11 @@ h1, h2{
     max-width: 300px;
     background-color:rgba(255, 241, 112, 0.541);
     border-radius: 5px;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: relative;
     margin: 10px auto;
     cursor: pointer;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 .profile-card-4 img {
@@ -57,7 +62,7 @@ h1, h2{
 
 .profile-card-4 .profile-name h4 {
     font-weight: 600;
-    font-size: 20px;
+    font-size: 18px;
     letter-spacing: 1.5px;
 }
 
@@ -106,20 +111,20 @@ h1, h2{
     text-align: center  ;
 }
 
-#seccionPostCaptura{
+#seccionIntermedia{
     display: flex;
     flex-direction: column;
 }
-#seccionPostCaptura h2{
+#seccionIntermedia h2{
     margin-top: 40px;
 }
 
-#seccionPostCaptura div{
+#seccionIntermedia div{
     margin: 20px;
     display: flex;
     justify-content: space-around;
 }
-#seccionPostCaptura div button{
+#seccionIntermedia div button{
     width: 500px;
     font-size: 20px;
     background-color: #f5cc8f63;
@@ -161,4 +166,92 @@ h1, h2{
 .datosPokebola button:disabled{
     color:rgb(211, 195, 195);
     background-color:rgb(24, 63, 16);
+}
+
+
+.pkm-type {
+    width: 8em;
+    text-align: center;
+    display: inline-block;
+    border: 0.1em solid transparent;
+    padding: 0.4em 0.6em 0.6em;
+    margin: 0.1em 0.015em;
+    border-radius: 0.4em;
+}
+.pkm-type span {
+    font-size: 0.8em;
+    color: rgb(255, 255, 255);
+    text-shadow: 0em 0em 0.2em black;
+}
+.normal {
+    background-color: #a8a878;
+    border-color: #818153;
+}
+.fire {
+    background-color: #78c850;
+    border-color: #549b31;
+}
+.fighting {
+    background-color: #c03028;
+    border-color: #81201b;
+}
+.water {
+    background-color: #6890f0;
+    border-color: #225de9;
+}
+.poison {
+    background-color: #a040a0;
+    border-color: #692a69;
+}
+.electric {
+    background-color: #f8d030;
+    border-color: #d4ab07;
+}
+.ground {
+    background-color: #e0c068;
+    border-color: #d1a42b;
+}
+.grass {
+    background-color: #78c850;
+    border-color: #549b31;
+}
+.flying {
+    background-color: #a890f0;
+    border-color: #734de7;
+}
+.ice {
+    background-color: #98d8d8;
+    border-color: #61c3c3;
+}
+.bug {
+    background-color: #a8b820;
+    border-color: #6d7715;
+}
+.psychic {
+    background-color: #f85888;
+    border-color: #f50f54;
+}
+.rock {
+    background-color: #b8a038;
+    border-color: #7d6d26;
+}
+.dragon {
+    background-color: #7038f8;
+    border-color: #4608dc;
+}
+.ghost {
+    background-color: #705898;
+    border-color: #4c3c68;
+}
+.dark {
+    background-color: #705848;
+    border-color: #41332a;
+}
+.steel {
+    background-color: #b8b8d0;
+    border-color: #8a8ab2;
+}
+.fairy {
+    background-color: #ffb7fa;
+    border-color: #ff6bf5;
 }
