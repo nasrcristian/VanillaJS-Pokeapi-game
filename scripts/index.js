@@ -62,7 +62,11 @@
                     return pokemon.id === data.id
                 })
                 indicePokemon === -1? pokemonesDisponibles.push(data) : pushearPokemonADisponibles() // Dentro del fetch se realiza una validación para evitar pokemones repetidos a la hora de pushear al array
-        })
+            })
+            .catch(()=>{
+                seccionPrincipal.innerHTML = `No se pudieron recuperar los datos.`
+            })
+
     }
 
     let pushear_PokemonesADisponibles =(numero)=>{
@@ -329,9 +333,6 @@ const pintarPokedex = ()=>{
                             <h5>${parseInt(pokemon.base_experience / 5)}</h5>
                         </div>
                     </div>
-                </div>
-                <div class="profile-description">
-                    <p>${pokemon.descripcion}</p>
                 </div>
             </div>
         </div>
