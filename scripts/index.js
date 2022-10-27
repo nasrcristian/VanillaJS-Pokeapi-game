@@ -389,7 +389,7 @@ const calcularCapturaSegunPokebola_ =(entrada)=>{
             close: true,
             gravity: "bottom",
             offset:{
-                y: "60vh"
+                y: "30vh"
             },
             position: "center",
             stopOnFocus: false,
@@ -407,7 +407,7 @@ const calcularCapturaSegunPokebola_ =(entrada)=>{
             close: true,
             gravity: "bottom",
             offset:{
-                y: "60vh"
+                y: "30vh"
             },
             position: "center",
             stopOnFocus: false,
